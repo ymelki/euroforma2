@@ -52,10 +52,23 @@
     // connexion à la BD
     
 
-$conn = new mysqli("127.0.0.1","root","", "projetbts");
+    $user = "root";
+    $pass = "";
+    $dnspdo = 'mysql:dbname=projetbts;host=localhost;charset=utf8';
+    
+    $bdd = new PDO($dnspdo, $user, $pass);
 
+    // Récupère les données de la table produits
+  $requete1 = 'SELECT * FROM produit';
 
-if ($conn->connect_error)
-  die(sprintf('Unable to connect to the database. %s', $conn->connect_error));
-
-    ?>
+  // le prepare (avec le execute) est comme un query mais beaucoup plus sécurisé (voir ci-dessous)
+  // l'opérateur flèche -> permer d'accéder aux éléments d'une classe (méthode ou attribut)
+  $resultat = $bdd->prepare($requete1);
+  $resultat->execute();
+  var_dump( $resultat);
+  echo $resultat->rowCount();
+  while($ligne = $resultat->fetch()) {
+		echo "<li>".$ligne['nom']."</li>";
+	}  
+    
+    ?>test
