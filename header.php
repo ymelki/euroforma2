@@ -65,8 +65,12 @@
   // l'opérateur flèche -> permer d'accéder aux éléments d'une classe (méthode ou attribut)
   $resultat = $bdd->prepare($requete1);
   $resultat->execute();
+
+
   var_dump( $resultat);
   echo $resultat->rowCount();
+
+  
   while($ligne = $resultat->fetch()) {
 		echo "<li>".$ligne['nom']."</li>";
 	}  
